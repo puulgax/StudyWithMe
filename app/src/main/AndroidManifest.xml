@@ -33,5 +33,6 @@
         <activity android:name=".Notificacoes"
             android:label="@string/action_notif" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>

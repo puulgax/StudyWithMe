@@ -42,14 +42,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <com.google.android.gms.maps.MapView
-        android:layout_width="match_parent"
-        android:layout_marginTop="93dp"
-        android:id="@+id/mapView"
-        android:layout_below="@+id/criar_hora_text"
-        android:layout_centerHorizontal="true"
-        android:layout_height="match_parent" />
-
     <TextView
         android:text="Matéria"
         android:layout_width="wrap_content"
@@ -99,5 +91,13 @@
         android:layout_below="@+id/criar_disciplina_list"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <com.google.android.gms.maps.MapView
+        android:layout_width="match_parent"
+        android:id="@+id/mapView"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
