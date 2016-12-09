@@ -3,6 +3,7 @@ package br.usp.icmc.studywithme;
 import android.net.ParseException;
 import android.os.AsyncTask;
 import android.util.Log;
+import br.usp.icmc.studywithme.classes.Grupo;
 
 
 import org.apache.http.HttpResponse;
@@ -20,9 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by gabri_000 on 07/12/2016.
- */
 
 public class ConexaoBanco{
 
@@ -43,6 +41,41 @@ public class ConexaoBanco{
             try {
                 JSONObject obj = json.getJSONObject(i);
                 retorno.add(obj.get("nome").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return retorno;
+    }
+
+    public ArrayList<Grupo> loadGrupos(String nomeDisciplina) {
+        ArrayList<Grupo> retorno = new ArrayList<Grupo>();
+        List<NameValuePair> myArgs = new ArrayList<NameValuePair>();
+        myArgs.add(new BasicNameValuePair("getGrupos", nomeDisciplina));
+        JSONArray json = executaArgumentos(myArgs);
+        if(json == null) return retorno;
+        for(int i = 0; i < json.length(); i++){
+            try {
+                JSONObject obj = json.getJSONObject(i);
+                retorno.add(new Grupo(obj.get("id").toString(), obj.get("materia").toString(), obj.get("data").toString(), obj.get("horario").toString()));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return retorno;
+    }
+
+    //TODO: arrumar loadAgenda para ler grupos que participa
+    public ArrayList<Grupo> loadAgenda(String nomeDisciplina) {
+        ArrayList<Grupo> retorno = new ArrayList<Grupo>();
+        List<NameValuePair> myArgs = new ArrayList<NameValuePair>();
+        myArgs.add(new BasicNameValuePair("getGrupos", nomeDisciplina));
+        JSONArray json = executaArgumentos(myArgs);
+        if(json == null) return retorno;
+        for(int i = 0; i < json.length(); i++){
+            try {
+                JSONObject obj = json.getJSONObject(i);
+                retorno.add(new Grupo(obj.get("id").toString(), obj.get("materia").toString(), obj.get("data").toString(), obj.get("horario").toString()));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

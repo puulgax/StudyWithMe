@@ -43,43 +43,47 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="Matéria"
+        android:text="@string/text_materia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/criar_materia"
         android:layout_alignBaseline="@+id/criar_materia_text"
         android:layout_alignBottom="@+id/criar_materia_text"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="18sp"/>
 
     <TextView
-        android:text="Data"
+        android:text="@string/text_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/criar_data"
         android:layout_alignBaseline="@+id/criar_data_text"
         android:layout_alignBottom="@+id/criar_data_text"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="18sp"/>
 
     <TextView
-        android:text="Horário"
+        android:text="@string/text_hora"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/criar_hora"
         android:layout_alignBaseline="@+id/criar_hora_text"
         android:layout_alignBottom="@+id/criar_hora_text"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="18sp"/>
 
     <TextView
-        android:text="Disciplina"
+        android:text="@string/text_disciplina"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/criar_disciplina"
         android:layout_above="@+id/criar_materia_text"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="18sp"/>
 
     <EditText
         android:layout_width="wrap_content"

@@ -1,10 +1,18 @@
 <resources>
     <string name="app_name">StudyWithMe</string>
     <string name="main_text">Crie e busque grupos de estudo com pessoas perto de você!</string>
+
     <string name="action_criar">Criar grupo</string>
     <string name="action_buscar">Buscar</string>
     <string name="action_notif">Notificações</string>
     <string name="action_agenda">Agenda</string>
     <string name="action_perfil">Perfil</string>
     <string name="action_logout">Sair</string>
+
+    <string name="search_hint">Pesquise pela disciplina</string>
+
+    <string name="text_disciplina">Disciplina:</string>
+    <string name="text_materia">Matéria:</string>
+    <string name="text_data">Data:</string>
+    <string name="text_hora">Horário:</string>
 </resources>

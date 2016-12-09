@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:label="@string/app_name">
+
+    <TextView android:text="@string/text_materia"
+        android:id="@+id/row_materia"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/row_text_materia"
+        android:layout_toEndOf="@+id/row_materia"
+        android:layout_toRightOf="@+id/row_materia"
+        android:gravity="end"
+        android:textAlignment="textEnd"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp" />
+
+    <TextView android:text="@string/text_data"
+        android:id="@+id/row_data"
+        android:layout_below="@+id/row_materia"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/row_text_data"
+        android:layout_toEndOf="@+id/row_data"
+        android:layout_toRightOf="@+id/row_data"
+        android:gravity="end"
+        android:textAlignment="textEnd"
+        android:layout_below="@+id/row_text_materia"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp" />
+
+    <TextView android:text="@string/text_hora"
+        android:id="@+id/row_hora"
+        android:layout_below="@+id/row_data"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/row_text_hora"
+        android:layout_toEndOf="@+id/row_hora"
+        android:layout_toRightOf="@+id/row_hora"
+        android:gravity="end"
+        android:textAlignment="textEnd"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/row_text_data"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp" />
+
+    <TextView android:id="@+id/row_id"
+        android:enabled="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

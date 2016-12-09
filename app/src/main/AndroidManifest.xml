@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.usp.icmc.studywithme">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,16 +25,24 @@
             android:label="@string/action_criar" />
         <activity
             android:name=".Buscar"
-            android:label="@string/action_buscar" />
+            android:label="@string/action_buscar">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
         <activity
             android:name=".Agenda"
             android:label="@string/action_agenda" />
         <activity
             android:name=".Perfil"
             android:label="@string/action_perfil" />
-        <activity android:name=".Notificacoes"
+        <activity
+            android:name=".Notificacoes"
             android:label="@string/action_notif" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
