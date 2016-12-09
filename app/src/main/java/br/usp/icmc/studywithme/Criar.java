@@ -33,7 +33,8 @@ import br.usp.icmc.studywithme.R.*;
 
 public class Criar extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap googleMap;
-    private Marker m;
+    private LatLng latlgn;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,11 +62,25 @@ public class Criar extends AppCompatActivity implements OnMapReadyCallback {
             return; //error
         }
         else {
-            googleMap.setMyLocationEnabled(true);
+            this.googleMap.setMyLocationEnabled(true);
             LatLng local = new LatLng(-22.007515,-47.894383);
-            m = this.googleMap.addMarker(new MarkerOptions().position(local).title("Study Here").draggable(true));
+            Marker m = this.googleMap.addMarker(new MarkerOptions().position(local).title("Study Here").draggable(true));
             this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(local));
+            this.googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(local.latitude, local.longitude), 12.0f));
+            this.googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+                @Override
+                public void onMarkerDragStart(Marker marker) {}
+                @Override
+                public void onMarkerDrag(Marker marker) {}
+                @Override
+                public void onMarkerDragEnd(Marker marker) {
+                    updateMarker(marker);
+                }
+            });
         }
+    }
+    private void updateMarker(Marker marker){
+        latlgn = marker.getPosition();
     }
 
     private class ThreadDisciplina extends Thread{
@@ -153,7 +168,7 @@ public class Criar extends AppCompatActivity implements OnMapReadyCallback {
         EditText data = (EditText) findViewById(id.criar_data_text);
         EditText horario = (EditText) findViewById(id.criar_hora_text);
         EditText materia = (EditText) findViewById(id.criar_materia_text);
-        String location = m.getPosition().latitude+","+m.getPosition().longitude;
+        String location = latlgn.latitude+","+latlgn.longitude;
         ThreadGrupos tg = new ThreadGrupos(handler,s.getSelectedItem().toString(),materia.getText().toString(),data.getText().toString(),horario.getText().toString(),location);
         tg.start();
     }
