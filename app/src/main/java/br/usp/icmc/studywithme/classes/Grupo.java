@@ -16,6 +16,13 @@ public class Grupo {
         this.Dia = data;
         this.Hora = hora;
     }
+    public Grupo(String id, String materia, String data, String hora,String disciplina){
+        this.id = id;
+        this.Materia = materia;
+        this.Dia = data;
+        this.Hora = hora;
+        this.Disciplina = disciplina;
+    }
     public String getId(){
         return id;
     }

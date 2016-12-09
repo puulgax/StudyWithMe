@@ -48,7 +48,7 @@ public class ConexaoBanco{
         return retorno;
     }
 	
-	public int criaGrupos(String disciplina,String materia,String data,String horario,String location) {
+	public int criaGrupos(String disciplina,String materia,String data,String horario,String location,int usuario) {
         int retorno;
         List<NameValuePair> myArgs = new ArrayList<NameValuePair>();
         myArgs.add(new BasicNameValuePair("createGrupos", disciplina));
@@ -56,6 +56,7 @@ public class ConexaoBanco{
         myArgs.add(new BasicNameValuePair("cData", data));
         myArgs.add(new BasicNameValuePair("cHorario", horario));
         myArgs.add(new BasicNameValuePair("cLocation", location));
+        myArgs.add(new BasicNameValuePair("cUser", String.valueOf(usuario)));
         retorno = executaArgumentosCriar(myArgs);
         return retorno;
     }
@@ -78,16 +79,16 @@ public class ConexaoBanco{
     }
 
     //TODO: arrumar loadAgenda para ler grupos que participa
-    public ArrayList<Grupo> loadAgenda(String nomeDisciplina) {
+    public ArrayList<Grupo> loadAgenda(int idUsuario) {
         ArrayList<Grupo> retorno = new ArrayList<Grupo>();
         List<NameValuePair> myArgs = new ArrayList<NameValuePair>();
-        myArgs.add(new BasicNameValuePair("getGrupos", nomeDisciplina));
+        myArgs.add(new BasicNameValuePair("getGrupoParticipante", String.valueOf(idUsuario)));
         JSONArray json = executaArgumentos(myArgs);
         if(json == null) return retorno;
         for(int i = 0; i < json.length(); i++){
             try {
                 JSONObject obj = json.getJSONObject(i);
-                retorno.add(new Grupo(obj.get("id").toString(), obj.get("materia").toString(), obj.get("data").toString(), obj.get("horario").toString()));
+                retorno.add(new Grupo(obj.get("id").toString(), obj.get("materia").toString(), obj.get("data").toString(), obj.get("horario").toString(),obj.get("disciplina").toString()));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -95,6 +96,13 @@ public class ConexaoBanco{
         return retorno;
     }
 
+    public int verificaLogin(String idFb, String nome) {
+        List<NameValuePair> myArgs = new ArrayList<NameValuePair>();
+        myArgs.add(new BasicNameValuePair("getUsuario", idFb));
+        myArgs.add(new BasicNameValuePair("uNome", nome));
+        int resposta = executaArgumentosCriar(myArgs);
+        return resposta;
+    }
     private JSONArray executaArgumentos(List<NameValuePair> myArgs) {
         String responseText = null;
         JSONArray json = null;

@@ -19,7 +19,7 @@ public class Agenda extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
-        loadAgenda("Calculo I");//TODO: nomeDisciplina -> UserID
+        loadAgenda(getIntent().getIntExtra("idUsuario",-1));//TODO: nomeDisciplina -> UserID
 
         final ListView lv = (ListView) findViewById(R.id.agenda_listview);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -42,15 +42,15 @@ public class Agenda extends AppCompatActivity {
 
     private class ThreadAgenda extends Thread{
         private Handler handler;
-        private String nomeDisciplina;//TODO: nomeDisciplina -> UserID
+        private int idUsuario;//TODO: nomeDisciplina -> UserID
 
-        public ThreadAgenda (Handler handler, String nomeDisciplina) {//TODO: nomeDisciplina -> UserID
+        public ThreadAgenda (Handler handler, int idUsuario) {//TODO: nomeDisciplina -> UserID
             this.handler = handler;
-            this.nomeDisciplina = nomeDisciplina;//TODO: nomeDisciplina -> UserID
+            this.idUsuario = idUsuario;//TODO: nomeDisciplina -> UserID
         }
         public void run() {
             ConexaoBanco conexao = new ConexaoBanco();
-            ArrayList<Grupo> valores = conexao.loadAgenda(nomeDisciplina); //TODO:nomeDisciplina -> UserID
+            ArrayList<Grupo> valores = conexao.loadAgenda(idUsuario); //TODO:nomeDisciplina -> UserID
             Message msg = new Message();
             msg.obj = valores;
             handler.sendMessage(msg);
@@ -58,7 +58,7 @@ public class Agenda extends AppCompatActivity {
     }
 
 
-    private void loadAgenda(String nomeDisciplina){//TODO: nomeDisciplina -> UserID
+    private void loadAgenda(int idUsuario){//TODO: nomeDisciplina -> UserID
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -66,10 +66,9 @@ public class Agenda extends AppCompatActivity {
                 ListView lv = (ListView) findViewById(R.id.agenda_listview);
                 GroupRowAdapter adapter = new GroupRowAdapter(getApplicationContext(), array);
                 lv.setAdapter(adapter);
-
             }
         };
-        ThreadAgenda tg = new ThreadAgenda(handler, nomeDisciplina); //TODO: nomeDisciplina -> UserID
+        ThreadAgenda tg = new ThreadAgenda(handler, idUsuario); //TODO: nomeDisciplina -> UserID
         tg.start();
     }
 }

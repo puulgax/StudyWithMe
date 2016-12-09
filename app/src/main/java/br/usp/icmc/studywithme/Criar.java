@@ -34,7 +34,7 @@ import br.usp.icmc.studywithme.R.*;
 public class Criar extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap googleMap;
     private LatLng latlgn;
-
+    private int idUsuario;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +51,8 @@ public class Criar extends AppCompatActivity implements OnMapReadyCallback {
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
+        idUsuario = getIntent().getIntExtra("idUsuario",-1);
+        latlgn = new LatLng(-22.007515,-47.894383);
 
     }
 
@@ -119,18 +120,20 @@ public class Criar extends AppCompatActivity implements OnMapReadyCallback {
     private class ThreadGrupos extends Thread{
         private Handler handler;
         private String materia,data,horario,disciplina,location;
+        private int idUsuario;
 
-        public ThreadGrupos(Handler handler,String disciplina,String materia,String data,String horario,String location) {
+        public ThreadGrupos(Handler handler,String disciplina,String materia,String data,String horario,String location,int usuario) {
             this.handler = handler;
             this.disciplina = disciplina;
             this.materia = materia;
             this.data = data;
             this.horario = horario;
             this.location = location;
+            this.idUsuario = usuario;
         }
         public void run() {
             ConexaoBanco conexao = new ConexaoBanco();
-            int retorno= conexao.criaGrupos(disciplina,materia,data,horario,location);
+            int retorno= conexao.criaGrupos(disciplina,materia,data,horario,location,idUsuario);
             Message msg = new Message();
             msg.obj = retorno;
             handler.sendMessage(msg);
@@ -169,7 +172,7 @@ public class Criar extends AppCompatActivity implements OnMapReadyCallback {
         EditText horario = (EditText) findViewById(id.criar_hora_text);
         EditText materia = (EditText) findViewById(id.criar_materia_text);
         String location = latlgn.latitude+","+latlgn.longitude;
-        ThreadGrupos tg = new ThreadGrupos(handler,s.getSelectedItem().toString(),materia.getText().toString(),data.getText().toString(),horario.getText().toString(),location);
+        ThreadGrupos tg = new ThreadGrupos(handler,s.getSelectedItem().toString(),materia.getText().toString(),data.getText().toString(),horario.getText().toString(),location,idUsuario);
         tg.start();
     }
 
