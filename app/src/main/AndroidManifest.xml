@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.usp.icmc.studywithme">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    
 
     <application
         android:allowBackup="true"
@@ -43,6 +43,11 @@
         <activity
             android:name=".Notificacoes"
             android:label="@string/action_notif" />
+		<meta-data android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyD5ug8mLWo_nq-08G36rDKR3kgGYRujj4c"/>
     </application>
+	<uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
 </manifest>

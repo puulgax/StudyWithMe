@@ -47,6 +47,18 @@ public class ConexaoBanco{
         }
         return retorno;
     }
+	
+	public int criaGrupos(String disciplina,String materia,String data,String horario,String location) {
+        int retorno;
+        List<NameValuePair> myArgs = new ArrayList<NameValuePair>();
+        myArgs.add(new BasicNameValuePair("createGrupos", disciplina));
+        myArgs.add(new BasicNameValuePair("cMateria", materia));
+        myArgs.add(new BasicNameValuePair("cData", data));
+        myArgs.add(new BasicNameValuePair("cHorario", horario));
+        myArgs.add(new BasicNameValuePair("cLocation", location));
+        retorno = executaArgumentosCriar(myArgs);
+        return retorno;
+    }
 
     public ArrayList<Grupo> loadGrupos(String nomeDisciplina) {
         ArrayList<Grupo> retorno = new ArrayList<Grupo>();
@@ -100,5 +112,22 @@ public class ConexaoBanco{
             e.printStackTrace();
         }
         return json;
+    }
+	
+	private int executaArgumentosCriar(List<NameValuePair> myArgs) {
+        String responseText = null;
+        int resposta = 0;
+        try {
+            post.setEntity(new UrlEncodedFormEntity(myArgs));
+            HttpResponse myResponse = client.execute(post);
+            responseText = EntityUtils.toString(myResponse.getEntity());
+            resposta = Integer.parseInt(responseText);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Log.i("Parse Exception", e + "");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return resposta;
     }
 }

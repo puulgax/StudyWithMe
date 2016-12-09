@@ -43,47 +43,43 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="@string/text_materia"
+        android:text="Matéria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/criar_materia"
         android:layout_alignBaseline="@+id/criar_materia_text"
         android:layout_alignBottom="@+id/criar_materia_text"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="18sp"/>
+        android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="@string/text_data"
+        android:text="Data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/criar_data"
         android:layout_alignBaseline="@+id/criar_data_text"
         android:layout_alignBottom="@+id/criar_data_text"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="18sp"/>
+        android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="@string/text_hora"
+        android:text="Horário"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/criar_hora"
         android:layout_alignBaseline="@+id/criar_hora_text"
         android:layout_alignBottom="@+id/criar_hora_text"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="18sp"/>
+        android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="@string/text_disciplina"
+        android:text="Disciplina"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/criar_disciplina"
         android:layout_above="@+id/criar_materia_text"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="18sp"/>
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -96,13 +92,21 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <com.google.android.gms.maps.MapView
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/map"
         android:layout_width="match_parent"
-        android:id="@+id/mapView"
         android:layout_height="match_parent"
+        android:layout_above="@+id/btnCriar"
+        android:layout_below="@+id/criar_hora_text"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/criar_hora_text" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:text="Criar"
+        android:id="@+id/btnCriar" />
 
 </RelativeLayout>
