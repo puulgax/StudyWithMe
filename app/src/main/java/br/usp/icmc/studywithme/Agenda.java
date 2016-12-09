@@ -1,5 +1,6 @@
 package br.usp.icmc.studywithme;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -15,42 +16,70 @@ import br.usp.icmc.studywithme.classes.GroupRowAdapter;
 import br.usp.icmc.studywithme.classes.Grupo;
 
 public class Agenda extends AppCompatActivity {
+    Grupo groupSelected;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
-        loadAgenda(getIntent().getIntExtra("idUsuario",-1));//TODO: nomeDisciplina -> UserID
+        loadAgenda(getIntent().getIntExtra("idUsuario",-1));
 
         final ListView lv = (ListView) findViewById(R.id.agenda_listview);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Grupo g = (Grupo) lv.getAdapter().getItem(position);
-                setContentView(R.layout.info_grupo);
-                TextView tv = (TextView) findViewById(R.id.info_text_disciplina);
-                tv.setText(g.getDisciplina());
-                tv = (TextView) findViewById(R.id.info_text_materia);
-                tv.setText(g.getMateria());
-                tv = (TextView) findViewById(R.id.info_text_data);
-                tv.setText(g.getDia());
-                tv = (TextView) findViewById(R.id.info_text_hora);
-                tv.setText(g.getHora());
-                //TODO: read rest of info
+                groupSelected = (Grupo) lv.getAdapter().getItem(position);
+                loadLocal(groupSelected.getId());
             }
         });
     }
 
+    private class ThreadLocal extends Thread {
+        private Handler handler;
+        private String groupID;
+
+        public ThreadLocal(Handler handler, String groupID) {
+            this.handler = handler;
+            this.groupID = groupID;
+        }
+
+        public void run() {
+            ConexaoBanco conexao = new ConexaoBanco();
+            String local = conexao.loadLocal(groupID);
+            Message msg = new Message();
+            msg.obj = local;
+            handler.sendMessage(msg);
+        }
+    }
+
+    private void loadLocal(final String groupID) {
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                String str = (String) msg.obj;
+                String[] grp = {groupSelected.getId(), groupSelected.getMateria(),
+                        groupSelected.getDia(), groupSelected.getHora()};
+                Intent intent = new Intent(getApplicationContext(), InfoGrupo.class);
+                intent.putExtra("lat", str);;
+                intent.putExtra("gdt", grp);
+                intent.putExtra("idUsuario", getIntent().getIntExtra("idUsuario",-1));
+                startActivity(intent);
+            }
+        };
+        ThreadLocal tl = new ThreadLocal(handler, groupID);
+        tl.start();
+    }
+
     private class ThreadAgenda extends Thread{
         private Handler handler;
-        private int idUsuario;//TODO: nomeDisciplina -> UserID
+        private int idUsuario;
 
-        public ThreadAgenda (Handler handler, int idUsuario) {//TODO: nomeDisciplina -> UserID
+        public ThreadAgenda (Handler handler, int idUsuario) {
             this.handler = handler;
-            this.idUsuario = idUsuario;//TODO: nomeDisciplina -> UserID
+            this.idUsuario = idUsuario;
         }
         public void run() {
             ConexaoBanco conexao = new ConexaoBanco();
-            ArrayList<Grupo> valores = conexao.loadAgenda(idUsuario); //TODO:nomeDisciplina -> UserID
+            ArrayList<Grupo> valores = conexao.loadAgenda(idUsuario);
             Message msg = new Message();
             msg.obj = valores;
             handler.sendMessage(msg);
@@ -58,7 +87,7 @@ public class Agenda extends AppCompatActivity {
     }
 
 
-    private void loadAgenda(int idUsuario){//TODO: nomeDisciplina -> UserID
+    private void loadAgenda(int idUsuario){
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -68,7 +97,7 @@ public class Agenda extends AppCompatActivity {
                 lv.setAdapter(adapter);
             }
         };
-        ThreadAgenda tg = new ThreadAgenda(handler, idUsuario); //TODO: nomeDisciplina -> UserID
+        ThreadAgenda tg = new ThreadAgenda(handler, idUsuario);
         tg.start();
     }
 }

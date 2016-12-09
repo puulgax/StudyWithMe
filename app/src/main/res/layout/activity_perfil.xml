@@ -10,4 +10,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.usp.icmc.studywithme.Perfil">
 
+    <com.facebook.login.widget.ProfilePictureView
+        android:id="@+id/profilePicture"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/profileName"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:textSize="24sp"
+        android:layout_below="@+id/profilePicture"/>
+
 </RelativeLayout>

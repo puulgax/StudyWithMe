@@ -8,6 +8,7 @@
     <string name="action_agenda">Agenda</string>
     <string name="action_perfil">Perfil</string>
     <string name="action_logout">Sair</string>
+    <string name="action_grupo">Grupo</string>
 
     <string name="search_hint">Pesquise pela disciplina</string>
 

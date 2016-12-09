@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.usp.icmc.studywithme">
 
-    
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -43,12 +45,19 @@
         <activity
             android:name=".Notificacoes"
             android:label="@string/action_notif" />
-		<meta-data android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyD5ug8mLWo_nq-08G36rDKR3kgGYRujj4c"/>
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <activity
+            android:name=".InfoGrupo"
+            android:label="@string/action_grupo" />
+        <activity
+            android:name=".InfoPart"
+            android:label="@string/action_grupo" />
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyD5ug8mLWo_nq-08G36rDKR3kgGYRujj4c" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
     </application>
-	<uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
 </manifest>

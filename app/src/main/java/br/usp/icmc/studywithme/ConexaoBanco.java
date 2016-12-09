@@ -61,10 +61,20 @@ public class ConexaoBanco{
         return retorno;
     }
 
-    public ArrayList<Grupo> loadGrupos(String nomeDisciplina) {
+    public int participaGrupo(String idGrupo, String idUsuario){
+        int retorno;
+        List<NameValuePair> myArgs = new ArrayList<NameValuePair>();
+        myArgs.add(new BasicNameValuePair("criaParticipacao", idGrupo));
+        myArgs.add(new BasicNameValuePair("usuario", idUsuario));
+        retorno = executaArgumentosCriar(myArgs);
+        return retorno;
+    }
+
+    public ArrayList<Grupo> loadGrupos(String nomeDisciplina, Integer idUsuario) {
         ArrayList<Grupo> retorno = new ArrayList<Grupo>();
         List<NameValuePair> myArgs = new ArrayList<NameValuePair>();
         myArgs.add(new BasicNameValuePair("getGrupos", nomeDisciplina));
+        myArgs.add(new BasicNameValuePair("idUsuario", idUsuario.toString()));
         JSONArray json = executaArgumentos(myArgs);
         if(json == null) return retorno;
         for(int i = 0; i < json.length(); i++){
@@ -78,7 +88,20 @@ public class ConexaoBanco{
         return retorno;
     }
 
-    //TODO: arrumar loadAgenda para ler grupos que participa
+    public String loadLocal(String idGrupo){
+        String retorno = null;
+        List<NameValuePair> myArgs = new ArrayList<NameValuePair>();
+        myArgs.add(new BasicNameValuePair("getLocalizacao", idGrupo));
+        JSONObject json = executaArgumentosObj(myArgs);
+        try{
+            retorno = json.get("localizacao").toString();
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return retorno;
+    }
+
     public ArrayList<Grupo> loadAgenda(int idUsuario) {
         ArrayList<Grupo> retorno = new ArrayList<Grupo>();
         List<NameValuePair> myArgs = new ArrayList<NameValuePair>();
@@ -103,6 +126,44 @@ public class ConexaoBanco{
         int resposta = executaArgumentosCriar(myArgs);
         return resposta;
     }
+
+    public ArrayList<String> loadPart(String idGrupo) {
+        ArrayList<String> retorno = new ArrayList<String>();
+        List<NameValuePair> myArgs = new ArrayList<NameValuePair>();
+        myArgs.add(new BasicNameValuePair("getParticipantes", idGrupo));
+        JSONArray json = executaArgumentos(myArgs);
+        if(json == null) return retorno;
+        for(int i = 0; i < json.length(); i++){
+            try {
+                JSONObject obj = json.getJSONObject(i);
+                retorno.add(obj.get("nome").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return retorno;
+    }
+
+
+    private JSONObject executaArgumentosObj(List<NameValuePair> myArgs) {
+        String responseText = null;
+        JSONObject json = null;
+        try {
+            post.setEntity(new UrlEncodedFormEntity(myArgs));
+            HttpResponse myResponse = client.execute(post);
+            responseText = EntityUtils.toString(myResponse.getEntity());
+            json = new JSONObject(responseText);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Log.i("Parse Exception", e + "");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
     private JSONArray executaArgumentos(List<NameValuePair> myArgs) {
         String responseText = null;
         JSONArray json = null;
